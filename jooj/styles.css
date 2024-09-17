@@ -35,3 +35,8 @@ input:valid {
 form {
     margin: 20px;
 }
+
+#tabela {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-color: #7c1ceb;
+}  
