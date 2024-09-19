@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('myForm');
-    const peopleTable = document.getElementById('tabela').getElementsByTagName('tbody')[0];
+    const peopleTable = document.getElementById('peopleTable').getElementsByTagName('tbody')[0];
 
-    let editingRow = null; // Variável para armazenar a linha sendo editada
+    let editingRow = null;
 
-    // Função para carregar pessoas do localStorage
     function loadPeople() {
         const savedPeople = localStorage.getItem('people');
         if (savedPeople) {
@@ -15,46 +14,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Função para adicionar uma pessoa na tabela com botão de edição
     function addPersonToTable(name, dob) {
         const newRow = peopleTable.insertRow();
         const nameCell = newRow.insertCell(0);
         const dobCell = newRow.insertCell(1);
-        const actionsCell = newRow.insertCell(2); // Nova célula para ações
+        const actionsCell = newRow.insertCell(2);
 
         nameCell.textContent = name;
         dobCell.textContent = dob;
 
-        // Botão de edição
         const editButton = document.createElement('button');
         editButton.textContent = 'Editar';
         editButton.addEventListener('click', () => {
             editPerson(newRow, name, dob);
         });
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remover';
+        removeButton.addEventListener('click', () => {
+            removePerson(newRow);
+        });
+
         actionsCell.appendChild(editButton);
+        actionsCell.appendChild(removeButton);
     }
 
-    // Função para carregar os dados da pessoa no formulário para edição
     function editPerson(row, name, dob) {
         document.getElementById('name').value = name;
         document.getElementById('dob').value = dob;
-        editingRow = row; // Armazena a linha sendo editada
+        editingRow = row;
     }
 
-    // Função que salva uma pessoa no localStorage (inclui edição)
     function savePerson(name, dob) {
         let savedPeople = localStorage.getItem('people');
         let peopleList = savedPeople ? JSON.parse(savedPeople) : [];
 
-        // Se estiver editando, remove a pessoa antiga
         if (editingRow) {
-            const rowIndex = editingRow.rowIndex - 1; // Ajusta para o índice correto da tabela
+            const rowIndex = editingRow.rowIndex - 1;
             peopleList.splice(rowIndex, 1);
         }
 
-        // Adiciona a nova ou editada pessoa
         peopleList.push({ name, dob });
         localStorage.setItem('people', JSON.stringify(peopleList));
+    }
+
+    function removePerson(row) {
+        const rowIndex = row.rowIndex - 1;
+        let savedPeople = localStorage.getItem('people');
+        let peopleList = savedPeople ? JSON.parse(savedPeople) : [];
+
+        peopleList.splice(rowIndex, 1);
+        localStorage.setItem('people', JSON.stringify(peopleList));
+        row.remove();
     }
 
     form.addEventListener('submit', (event) => {
@@ -66,11 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = nameInput.value.trim();
         const dob = dobInput.value;
 
-        // Limpa as mensagens de erro personalizadas
         nameInput.setCustomValidity('');
         dobInput.setCustomValidity('');
 
-        // Validações personalizadas
         const nameRegex = /^[A-Za-zÀ-ÿ]+$/;
         if (name === '') {
             nameInput.setCustomValidity('O campo Nome não pode estar vazio.');
@@ -86,25 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (form.checkValidity()) {
             if (editingRow) {
-                // Atualiza a linha na tabela
                 editingRow.cells[0].textContent = name;
                 editingRow.cells[1].textContent = dob;
-                editingRow = null; // Reseta a edição
+                editingRow = null;
             } else {
-                // Adiciona uma nova pessoa à tabela
                 addPersonToTable(name, dob);
             }
 
-            // Salva a pessoa no localStorage
             savePerson(name, dob);
 
-            // Limpa o formulário
             form.reset();
         } else {
             console.log('Existem erros no formulário.');
         }
     });
 
-    // Carrega as pessoas salvas ao iniciar a página
     loadPeople();
 });

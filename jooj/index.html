@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validação de Formulário</title>
     <script src="script.js" defer></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Cadastro de pessoas</h1>
     <form id="myForm">
         <label for="name">Nome:</label>
         <input type="text" id="name" name="name" required>
-
+        <br><br>
         <label for="dob">Data de Nascimento:</label>
         <input type="date" id="dob" name="dob" required>
-
+        <br><br>
         <button type="submit">Enviar</button>
     </form>
 
-    <h2>Pessoas cadastradas</h2>
-    <table id="tabela" border="1">
+    <h2>Lista de Pessoas Cadastradas</h2>
+    <table id="peopleTable" border="1">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -29,7 +29,6 @@
             </tr>
         </thead>
         <tbody>
-
         </tbody>
     </table>
 </body>
