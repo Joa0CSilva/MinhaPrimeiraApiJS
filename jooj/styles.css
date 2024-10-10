@@ -3,7 +3,7 @@ body {
     margin: 20px;
 }
 
-h1 {
+h1, h2 {
     color: #333;
 }
 
@@ -36,7 +36,23 @@ form {
     margin: 20px;
 }
 
-#tabela {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    border-color: #7c1ceb;
-}  
+#peopleTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#peopleTable th, #peopleTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#peopleTable th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+#peopleTable caption {
+    caption-side: top;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

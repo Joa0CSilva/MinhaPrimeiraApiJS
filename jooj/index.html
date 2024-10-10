@@ -8,28 +8,45 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Cadastro de pessoas</h1>
-    <form id="myForm">
-        <label for="name">Nome:</label>
-        <input type="text" id="name" name="name" required>
-        <br><br>
-        <label for="dob">Data de Nascimento:</label>
-        <input type="date" id="dob" name="dob" required>
-        <br><br>
-        <button type="submit">Enviar</button>
-    </form>
+    <header>
+        <h1>Cadastro de pessoas</h1>
+    </header>
 
-    <h2>Lista de Pessoas Cadastradas</h2>
-    <table id="peopleTable" border="1">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Data de Nascimento</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <main>
+        <section aria-labelledby="form-title">
+            <h2 id="form-title">Formulário de Cadastro</h2>
+            <form id="myForm" aria-describedby="form-instructions">
+                <p id="form-instructions">Preencha os campos obrigatórios e clique em Enviar para cadastrar uma pessoa.</p>
+                
+                <div class="input-field">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" name="name" required aria-required="true" aria-label="Nome completo">
+                </div>
+
+                <div class="input-field">
+                    <label for="dob">Data de Nascimento:</label>
+                    <input type="date" id="dob" name="dob" required aria-required="true" aria-label="Data de nascimento">
+                </div>
+
+                <button type="submit" class="submit-button" aria-label="Enviar formulário">Enviar</button>
+            </form>
+        </section>
+
+        <section aria-labelledby="people-list-title">
+            <h2 id="people-list-title">Lista de Pessoas Cadastradas</h2>
+            <table id="peopleTable" border="1" aria-describedby="table-description">
+                <caption id="table-description">Tabela com os nomes e datas de nascimento das pessoas cadastradas</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Data de Nascimento</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+    </main>
 </body>
 </html>
